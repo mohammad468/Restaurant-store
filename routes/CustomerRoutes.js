@@ -2,7 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const Customer = require("../models/CustomerModel");
-const { validateCreateCustomer } = require("../validators/CustomerValidator");
+const {
+  validateCreateCustomer,
+  validateUpdateCustomer,
+} = require("../validators/CustomerValidator");
 
 let customers = [
   { id: 1, name: "ali" },
@@ -39,23 +42,22 @@ router.post("/api/customers", async function (req, res) {
   res.send(customer);
 });
 
-router.put("/api/customers/:customerId", (req, res) => {
+router.put("/api/customers/:customerId", async (req, res) => {
   // input validation
-  const schema = Joi.object({
-    name: Joi.string().min(2).max(10).required(),
-    customerId: Joi.number().required(),
-  });
-  const { error } = schema.validate({
+
+  const { error } = validateUpdateCustomer({
     ...req.body,
     customerId: req.params.customerId,
   });
   if (error) return res.status(400).send({ message: error.message });
 
-  const index = customers.findIndex((item) => item.id == req.params.customerId);
-  if (index === -1)
+  let customer = await Customer.findById(req.params.customerId);
+  if (!customer) {
     return res.status(404).send({ message: "مشتری مورد نظر یافت نشد" });
-  customers[index].name = req.body.name;
-  res.send(customers[index]);
+  }
+  customer.name = req.body.name;
+  customer = await customer.save();
+  res.send(customer);
 });
 
 router.delete("/api/customers/:customerId", (req, res) => {

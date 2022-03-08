@@ -836,6 +836,11 @@
   "resolved" "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz"
   "version" "1.0.0"
 
+"joi-objectid@^4.0.2":
+  "integrity" "sha512-OjYM+wK/JGo2bSb9ADEyzxxROJPZYtrqIwBbywpJ2a98oKlbLtWTKvpzmrnXzou69Ey9EsjHsFvZYzpjeCdKuA=="
+  "resolved" "https://registry.npmjs.org/joi-objectid/-/joi-objectid-4.0.2.tgz"
+  "version" "4.0.2"
+
 "joi@^17.2.1":
   "integrity" "sha512-YT3/4Ln+5YRpacdmfEfrrKh50/kkgX3LgBltjqnlMPIYiZ4hxXZuVJcxmsvxsdeHg9soZfE3qXxHC2tMpCCBOA=="
   "resolved" "https://registry.npmjs.org/joi/-/joi-17.2.1.tgz"
