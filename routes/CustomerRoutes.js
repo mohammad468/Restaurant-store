@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const Customer = require("../models/CustomerModel");
 const { validateCreateCustomer } = require("../validators/CustomerValidator");
@@ -16,6 +17,10 @@ router.get("/api/customers", async (req, res) => {
 });
 
 router.get("/api/customers/:id", async (req, res) => {
+  const mongoose = require("mongoose");
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    return res.send("id is undefined");
+  }
   const customer = await Customer.findById(req.params.id);
   if (customer) res.send(customer);
   else res.status(404).send("not found");
