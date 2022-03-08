@@ -19,7 +19,7 @@ router.get("/api/customers", async (req, res) => {
 router.get("/api/customers/:id", async (req, res) => {
   const mongoose = require("mongoose");
   if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.send("id is undefined");
+    return res.status(400).send("id is undefined");
   }
   const customer = await Customer.findById(req.params.id);
   if (customer) res.send(customer);
