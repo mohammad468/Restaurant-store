@@ -60,12 +60,10 @@ router.put("/api/customers/:customerId", async (req, res) => {
   res.send(customer);
 });
 
-router.delete("/api/customers/:customerId", (req, res) => {
+router.delete("/api/customers/:customerId", async (req, res) => {
+  await Customer.findByIdAndRemove(req.params.customerId);
   const index = customers.findIndex((item) => item.id == req.params.customerId);
-  if (index === -1)
-    return res.status(404).send({ message: "مشتری مورد نظر یافت نشد" });
-  customers = [...customers.slice(0, index), ...customers.slice(index + 1)];
-  res.status(200).send();
+  res.status(200).send("deleted");
 });
 
 module.exports = router;
