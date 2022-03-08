@@ -1,5 +1,5 @@
 const Joi = require("joi");
-joi.objectid = require("joi-objectid");
+Joi.objectId = require("joi-objectid")(Joi);
 
 const validateCreateCustomer = (data) => {
   const schema = Joi.object({
@@ -11,8 +11,9 @@ const validateCreateCustomer = (data) => {
 const validateUpdateCustomer = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(10).required(),
-    customerId: Joi.number().required(),
+    customerId: Joi.objectId().required(),
   });
+  return schema.validate(data);
 };
 
 module.exports = { validateCreateCustomer, validateUpdateCustomer };
